@@ -2,22 +2,28 @@ import React from 'react'
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom'
 import TaskList from './pages/TaskList'
 import AddTask from './pages/AddTask'
+import { GlobalProvider } from './context/GlobalContext'
 
 const App = () => {
   return (
-    <BrowserRouter>
 
-      <nav>
-        <NavLink to="/">Lista Task</NavLink>
-        <NavLink to="/add">Aggiungi Task Task</NavLink>
-      </nav>
+    <GlobalProvider>
 
-      <Routes>
-        <Route path='/' element={<TaskList />} />
-        <Route path='/add' element={<AddTask />} />
-      </Routes>
+      <BrowserRouter>
 
-    </BrowserRouter>
+        <nav>
+          <NavLink to="/">Lista Task</NavLink>
+          <NavLink to="/add">Aggiungi Task</NavLink>
+        </nav>
+
+        <Routes>
+
+          <Route path='/' element={<TaskList />} />
+          <Route path='/add' element={<AddTask />} />
+        </Routes>
+
+      </BrowserRouter>
+    </GlobalProvider>
   )
 }
 
