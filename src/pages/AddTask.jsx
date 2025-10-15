@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
-import { useState, useRef } from 'react'
+import { useState, useRef, useContext } from 'react'
+import { GlobalContext } from '../context/GlobalContext';
 
 
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\\,.<>?/`~";
@@ -8,17 +9,21 @@ const symbols = "!@#$%^&*()-_=+[]{}|;:'\\,.<>?/`~";
 
 const AddTask = () => {
 
+    const { addTask } = useContext(GlobalContext)
+
     const [taskTitle, setTaskTitle] = useState("");
     const descriptionRef = useRef();
     const statusRef = useRef();
 
     const taskNameError = useMemo(() => {
+
         if (!taskTitle.trim()) return "Nome non può essere vuoto"
+
         if ([...taskTitle].some(char => symbols.includes(char))) return "Il nome non può contenere simboli"
         return ""
     }, [taskTitle])
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         if (taskNameError)
             return;
@@ -29,7 +34,17 @@ const AddTask = () => {
             status: statusRef.current.value
         }
 
-        console.log('Nuova task', newTask)
+
+        try {
+            await addTask(newTask);
+            alert("task creata con successo")
+            setTaskTitle("");
+            descriptionRef.current.value = "";
+            statusRef.current.value = "";
+
+        } catch (error) {
+            alert(error.message)
+        }
     }
 
     return (
