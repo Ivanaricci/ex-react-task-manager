@@ -45,7 +45,7 @@ nav a {
     color: #444;
     padding: 0.5rem 1rem;
     border-radius: 6px;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 nav a:hover {
@@ -60,7 +60,9 @@ nav a.active {
 }
 
 /* ======== CONTENUTO PRINCIPALE ======== */
-div {
+main,
+div.page {
+    flex: 1;
     padding: 2rem;
 }
 
@@ -93,7 +95,7 @@ thead {
 }
 
 thead th {
-    padding: 1rem;
+    padding: 1rem 1.2rem;
     font-weight: 500;
     letter-spacing: 0.5px;
 }
@@ -108,10 +110,28 @@ tbody tr:hover {
 }
 
 td {
-    padding: 0.9rem 1rem;
+    padding: 0.9rem 1.2rem;
     font-size: 0.95rem;
     color: #333;
-    text-align: left;
+    vertical-align: middle;
+}
+
+/* Allineamento coerente colonne */
+th:nth-child(1),
+td:nth-child(1) {
+    width: 45%;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    width: 25%;
+    text-align: center;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    width: 30%;
+    text-align: right;
 }
 
 /* ======== STATUS BADGE ======== */
@@ -123,8 +143,14 @@ td {
     font-weight: 600;
     text-transform: uppercase;
     text-align: center;
-    min-width: 80px;
+    min-width: 90px;
     letter-spacing: 0.5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.status:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
 /* "To do" → rosso */
@@ -137,7 +163,7 @@ td {
 /* "Doing" → giallo */
 .status.doing {
     background-color: #fff7e0;
-    color: #f9a825;
+    color: #b28704;
     border: 1px solid #fce19b;
 }
 
@@ -148,7 +174,7 @@ td {
     border: 1px solid #a8d5b8;
 }
 
-/* ======== FORM (AddTask futura) ======== */
+/* ======== FORM (AddTask) ======== */
 form {
     display: flex;
     flex-direction: column;
@@ -159,6 +185,13 @@ form {
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    color: #333;
 }
 
 input,
@@ -178,16 +211,17 @@ select:focus {
     border-color: #007bff;
 }
 
-/* ======== BOTTONI GENERICI ======== */
+/* ======== BOTTONI ======== */
 button {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 0.6rem 1.2rem;
+    padding: 0.8rem 1.4rem;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.25s ease;
     font-weight: 500;
+    align-self: flex-end;
 }
 
 button:hover {
@@ -227,12 +261,16 @@ button:disabled {
     tbody td {
         display: flex;
         justify-content: space-between;
-        padding: 0.4rem 0;
+        padding: 0.5rem 0;
     }
 
     tbody td::before {
         content: attr(data-label);
         font-weight: 600;
         color: #555;
+    }
+
+    td:nth-child(3) {
+        text-align: left;
     }
 }
